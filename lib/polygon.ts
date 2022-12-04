@@ -1,5 +1,5 @@
 import { restClient } from "@polygon.io/client-js";
 
-const rest = restClient("api key");
+const rest = restClient(process.env.API_KEY);
 
-rest.forex.previousClose("C:EURUSD").then(/* your success handler */);
+export default rest;
