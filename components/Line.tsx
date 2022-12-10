@@ -10,7 +10,6 @@ import {
   Legend,
   Filler,
   ChartArea,
-  TimeScale,
   ChartOptions
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
@@ -32,6 +31,7 @@ const MONTHES = [
 
 const options: ChartOptions = {
   responsive: true,
+  maintainAspectRatio: true,
   plugins: {
     legend: {
       position: "top" as const
@@ -51,6 +51,9 @@ const options: ChartOptions = {
     xAxes: {
       border: {
         color: "white"
+      },
+      ticks: {
+        display: false
       }
     }
   }
@@ -110,7 +113,6 @@ const Line = ({ stock }: { stock: string }) => {
           labels: MONTHES.map((month) => month.substring(0, 3)),
           datasets: [
             {
-              xAxisID: "x",
               label: "Price",
               fill: true,
               data: [65, 59, 80, 81, 56, 55, 40],
