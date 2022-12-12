@@ -4,6 +4,7 @@ import { DefaultSeo } from "next-seo";
 import styled, { ThemeProvider } from "styled-components";
 import SideMenu from "../components/SideMenu";
 import { useState } from "react";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const theme = {
   black: "#000814",
@@ -23,8 +24,7 @@ interface modalProps {
 const Modal = styled.div<modalProps>`
   max-height: ${(props) => (props.open ? "100vh" : "")};
   position: relative;
-  overflow: hidden;
-  top: ${(props) => props.open && props.scroll};
+  overflow: ${(props) => (props.open ? "hidden" : "auto")};
   transform: ${(props) => (props.open ? "scaleY(0.9) scaleX(0.85)" : "")};
   margin-left: ${(props) => props.open && "2.5rem"};
   transition: transform 250ms ease;
@@ -39,6 +39,10 @@ const Modal = styled.div<modalProps>`
     transition: background-color 250ms ease;
     pointer-events: ${(props) => !props.open && "none"};
   }
+`;
+
+const Container = styled.div`
+  position: relative;
 `;
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -66,10 +70,14 @@ export default function App({ Component, pageProps }: AppProps) {
         >
           wattup
         </button>
-        <SideMenu open={open} />
-        <Modal scroll={scroll} open={open} onClick={() => setOpen(false)}>
-          <Component {...pageProps} />
-        </Modal>
+        <Container>
+          <SideMenu open={open} />
+          <Modal scroll={scroll} open={open} onClick={() => setOpen(false)}>
+            <UserProvider>
+              <Component {...pageProps} />
+            </UserProvider>
+          </Modal>
+        </Container>
       </ThemeProvider>
     </>
   );

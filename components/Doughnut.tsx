@@ -25,6 +25,8 @@ ChartJS.register(
   ArcElement
 );
 
+const options = {};
+
 const Doughnut = () => {
   return (
     <Chart type='doughnut' data={{ datasets: [{ data: [25, 35, 45] }] }} />
