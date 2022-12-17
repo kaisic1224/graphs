@@ -9,10 +9,9 @@ import {
   Tooltip,
   Legend,
   Filler,
-  ArcElement,
-  ChartArea,
-  ChartOptions
+  ArcElement
 } from "chart.js";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -29,7 +28,13 @@ const options = {};
 
 const Doughnut = () => {
   return (
-    <Chart type='doughnut' data={{ datasets: [{ data: [25, 35, 45] }] }} />
+    <Chart
+      type='doughnut'
+      data={{
+        labels: ["Red", "GOOGL", "AMZ"],
+        datasets: [{ label: "market share", data: [25, 35, 45] }]
+      }}
+    />
   );
 };
 export default Doughnut;
