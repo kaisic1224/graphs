@@ -17,15 +17,15 @@ interface itemProps {
 
 const Menu = styled.div<sidemenuProps>`
   display: flex;
+  position: absolute;
   gap: 1rem;
   height: calc(100vh - 2rem);
   margin: 1rem 0 1rem 1rem;
   padding: 2rem;
-  position: fixed;
   flex-direction: column;
   border-radius: 12px;
   background-color: rgb(27, 27, 27);
-  translate: ${(props) => (props.open ? "0" : "calc(-100% - 2rem)")};
+  translate: ${(props) => (props.open ? 0 : "calc(-100% - 2rem)")};
   transition: translate 250ms ease;
 `;
 
@@ -72,27 +72,28 @@ const PurpleLink = styled.a<itemProps>`
 `;
 
 const MENU_ITEMS = [
-  { link: "/", icon: <FaHome /> },
-  { link: "/market", icon: <SiMarketo /> },
-  { link: "/crypto", icon: <BsCoin /> },
-  { link: "/account", icon: <AiOutlineUser /> }
+  { link: "/", icon: <FaHome />, label: "Home" },
+  { link: "/market", icon: <SiMarketo />, label: "Stock Market" },
+  { link: "/crypto", icon: <BsCoin />, label: "Crypto" },
+  { link: "/account", icon: <AiOutlineUser />, label: "Account" }
 ];
 
 const SideMenu = ({ open }: { open: boolean }) => {
   const router = useRouter();
   const theme = useTheme();
+  console.log(open);
   return (
     <>
       <Menu open={open} theme={theme}>
         {MENU_ITEMS.map((item) => (
-          <Link href={item.link} legacyBehavior passHref>
-            <PurpleLink link={item.link} path={router.pathname}>
-              <Item
-                tabIndex={1}
-                link={item.link}
-                path={router.pathname}
-                key={item.link}
-              >
+          <Link href={item.link} legacyBehavior passHref key={item.link}>
+            <PurpleLink
+              link={item.link}
+              path={router.pathname}
+              title={item.label}
+              aria-label={item.label}
+            >
+              <Item tabIndex={1} link={item.link} path={router.pathname}>
                 {item.icon}
               </Item>
             </PurpleLink>

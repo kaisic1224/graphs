@@ -13,6 +13,7 @@ import {
   ChartOptions
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
+import useGradient from "../lib/useGradient";
 
 const MONTHES = [
   "January",
@@ -70,37 +71,12 @@ ChartJS.register(
   Filler
 );
 
-const creategradient = (
-  ctx: CanvasRenderingContext2D,
-  area: ChartArea,
-  colours: string[]
-) => {
-  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
-  colours.map((colour, i) => {
-    gradient.addColorStop(i, colour);
-  });
-
-  return gradient;
-};
-
 const Line = ({ stock }: { stock: string }) => {
   const chartRef = useRef<ChartJS>(null);
-  const [gradient, setgradient] = useState<string | CanvasGradient>(
-    "rgba(0, 0, 0, 0)"
-  );
-
-  useEffect(() => {
-    const { ctx, chartArea } = chartRef.current!;
-
-    if (!chartRef) return;
-
-    setgradient(
-      creategradient(ctx, chartArea, [
-        "rgba(0, 0, 0, 0)",
-        "rgba(75, 192, 192, 0.6)"
-      ])
-    );
-  }, []);
+  const gradient = useGradient(chartRef, [
+    "rgba(0, 0, 0, 0)",
+    "rgba(75, 192, 192, 0.6)"
+  ]);
 
   return (
     <>
