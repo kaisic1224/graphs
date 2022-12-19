@@ -81,7 +81,6 @@ const MENU_ITEMS = [
 const SideMenu = ({ open }: { open: boolean }) => {
   const router = useRouter();
   const theme = useTheme();
-  console.log(open);
   return (
     <>
       <Menu open={open} theme={theme}>
