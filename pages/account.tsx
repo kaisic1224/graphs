@@ -1,8 +1,14 @@
+import Link from "next/link";
+
 const account = () => {
   return (
     <div>
-      <a href='/api/auth/login'>asdasd</a>
-      <a href='/api/auth/logout'>logaouttt</a>
+      <Link href='/api/auth/login'>
+        <a>asdasd</a>
+      </Link>
+      <Link href='/api/auth/logout'>
+        <a>logout</a>
+      </Link>
     </div>
   );
 };
